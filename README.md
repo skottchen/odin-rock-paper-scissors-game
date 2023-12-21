@@ -1,4 +1,2 @@
 # odin-rock-paper-scissors-game
-Project: Rock Paper Scissors in The Odin Project Foundations Course <br>
-JavaScript Section
-Username and Password
+Project: Rock Paper Scissors in The Odin Project Foundations Course
