@@ -6,22 +6,22 @@ let computerScore = 0;
 function getComputerChoice() {
     //computer randomly returns rock, paper or scissors as its choice based on if
     //moveNum is 1, 2, or 3
-    const moveNum = Math.floor((Math.random() * 3));
+    computerChoiceNum = Math.floor((Math.random() * 3));
     let computerChoice;
-    if (moveNum == 0) {
+    if (computerChoiceNum == 0) {
         computerChoice = "Rock";
-    } else if (moveNum == 1) {
+    } else if (computerChoiceNum == 1) {
         computerChoice = "Paper";
     } else {
         computerChoice = "Scissors";
     }
-    computerChoiceNum = moveNum;
+
     return computerChoice;
 }
 
 function getPlayerChoice() {
     let playerChoice = prompt("Enter rock, paper, or scissors");
-
+    console.log(playerChoice)
     //check for invalid input
     while ((format(playerChoice) != "Rock")
         && (format(playerChoice) != "Paper")
@@ -88,7 +88,7 @@ function game() {
     } else if (computerScore > playerScore) {
         gameResult = "You lost this game. Better luck next time. "
     } else {
-        gameResult = "It's a tie."
+        gameResult = "Tied game."
     }
 
     //reset scores before new round
