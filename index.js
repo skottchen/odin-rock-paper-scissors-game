@@ -1,12 +1,10 @@
-let computerChoiceNum;
-let playerChoiceNum;
 let playerScore = 0;
 let computerScore = 0;
 
 function getComputerChoice() {
     //computer randomly returns rock, paper or scissors as its choice based on if
     //moveNum is 1, 2, or 3
-    computerChoiceNum = Math.floor((Math.random() * 3));
+    const computerChoiceNum = Math.floor((Math.random() * 3));
     let computerChoice;
     if (computerChoiceNum == 0) {
         computerChoice = "Rock";
@@ -21,22 +19,13 @@ function getComputerChoice() {
 
 function getPlayerChoice() {
     let playerChoice = prompt("Enter rock, paper, or scissors");
-    console.log(playerChoice)
-    //check for invalid input
+
     while ((format(playerChoice) != "Rock")
         && (format(playerChoice) != "Paper")
         && (format(playerChoice) != "Scissors")) {
         playerChoice = prompt("Invalid input. Please enter rock, paper, or scissors");
     }
 
-    //assign a number to playerChoice
-    if (format(playerChoice) == "Rock") {
-        playerChoiceNum = 0;
-    } else if (format(playerChoice) == "Paper") {
-        playerChoiceNum = 1;
-    } else {//scissors
-        playerChoiceNum = 2;
-    }
     return format(playerChoice);
 }
 
@@ -45,30 +34,24 @@ function format(playerChoice) {
     return playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
 }
 
+
 function playRound() {
     const playerSelection = getPlayerChoice();
     const computerSelection = getComputerChoice();
     let roundResult = "";
-    //ChoiceNum assignments:
-    //0 - Rock
-    //1 - Paper
-    //2 - Scissors
-    //with the exception of the case that rock beats scissors (0>2), whoever has
-    //the bigger ChoiceNum wins the round
-    if (playerSelection == "Rock" && computerSelection == "Scissors") {
-        roundResult = "You win this round! " + playerSelection + " beats " + computerSelection;
+
+    if ((playerSelection == "Scissors" && computerSelection == "Paper")
+        || (playerSelection == "Paper" && computerSelection == "Rock")
+        || (playerSelection == "Rock" && computerSelection == "Scissors")) {
+        roundResult = "You win this round! " + "Player's move: "
+            + playerSelection + " beats " + "Computer's move: " + computerSelection;
         playerScore++;
-    } else if (computerSelection == "Rock" && playerSelection == "Scissors") {
-        roundResult = "You lose this round! " + computerSelection + " beats " + playerSelection;
-        computerScore++;
-    } else if (playerChoiceNum > computerChoiceNum) {
-        roundResult = "You win this round! " + playerSelection + " beats " + computerSelection;
-        playerScore++;
-    } else if (computerChoiceNum > playerChoiceNum) {
-        roundResult = "You lose this round! " + computerSelection + " beats " + playerSelection;
-        computerScore++;
-    } else {
+    } else if (playerSelection == computerSelection) {
         roundResult = "It's a tie! There's no winner or loser for this round. "
+    } else {
+        roundResult = "You lose this round! " + "Computer's move: " + computerSelection +
+            " beats " + "Player's move: " + playerSelection;
+        computerScore++;
     }
     return roundResult;
 }
@@ -77,10 +60,9 @@ function playRound() {
 function game() {
     let gameResult = "";
     for (let i = 0; i < 5; i++) {
-        playRound();
-        // console.log(playRound())
-        // console.log(playerScore);
-        // console.log(computerScore);
+        console.log(playRound());
+        console.log("Player score: " + playerScore);
+        console.log("Computer score: " + computerScore);
     }
 
     if (playerScore > computerScore) {
