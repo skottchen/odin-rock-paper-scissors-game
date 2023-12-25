@@ -1,9 +1,8 @@
+//Rock, Paper, Scissors console game
 let playerScore = 0;
 let computerScore = 0;
 
 function getComputerChoice() {
-    //computer randomly returns rock, paper or scissors as its choice based on if
-    //moveNum is 1, 2, or 3
     const computerChoiceNum = Math.floor((Math.random() * 3));
     let computerChoice;
     if (computerChoiceNum == 0) {
@@ -56,7 +55,6 @@ function playRound() {
     return roundResult;
 }
 
-//play 5 rounds of the game and report a winner or loser at the end based on the score
 function game() {
     let gameResult = "";
     for (let i = 0; i < 5; i++) {
@@ -74,8 +72,8 @@ function game() {
     }
 
     //reset scores before new round
-    playerScore = 0;
-    computerScore = 0;
+    // playerScore = 0;
+    // computerScore = 0;
     return gameResult;
 }
 
