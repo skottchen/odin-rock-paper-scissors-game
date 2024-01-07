@@ -93,6 +93,7 @@ function playRound(playerSelection, computerSelection) {
         (document.getElementById("computer-score").innerHTML)++ //computer score
     }
 
+    resultsContainer.innerHTML = "";
     let resultELem = document.createElement("h2");
     resultELem.textContent = roundResult;
     resultsContainer.appendChild(resultELem);
@@ -124,7 +125,7 @@ function displayWinnerAndRestartGame(playerScore, computerScore) {
     } else if (playerScore == 5) {
         gameResultsElem.textContent = "Congratuations, you won the game!"
     } else {
-        gameResultsElem.textContent = "You lost the game. Better luck next time"
+        gameResultsElem.textContent = "You lost the game. Better luck next time."
     }
     resultsContainer.appendChild(gameResultsElem);
     resultsContainer.appendChild(restartGameBtn);
