@@ -1,6 +1,13 @@
-//Rock, Paper, Scissors console game
-let playerScore = 0;
-let computerScore = 0;
+let playerScore = document.getElementById("player-score").innerHTML;
+let rockBtn = document.getElementById("rock");
+let paperBtn = document.getElementById("paper");
+let scissorBtn = document.getElementById("scissors");
+let computerBtns = document.querySelectorAll("#computer button");
+let playerSelection;
+let resultsContainer = document.getElementById("results");
+let computerBtnSelected;
+let roundNum = 0;
+let gameOver = false;
 
 function getComputerChoice() {
     const computerChoiceNum = Math.floor((Math.random() * 3));
@@ -13,68 +20,120 @@ function getComputerChoice() {
         computerChoice = "Scissors";
     }
 
+    for (const button of computerBtns) {
+        if (button.textContent == computerChoice) {
+            button.style.border = "5px solid green";
+            computerBtnSelected = button;
+        }
+    }
+
     return computerChoice;
 }
 
-function getPlayerChoice() {
-    let playerChoice = prompt("Enter rock, paper, or scissors");
 
-    while ((format(playerChoice) != "Rock")
-        && (format(playerChoice) != "Paper")
-        && (format(playerChoice) != "Scissors")) {
-        playerChoice = prompt("Invalid input. Please enter rock, paper, or scissors");
+rockBtn.addEventListener("click", () => {
+    if (gameOver == false) {
+        playerSelection = "Rock";
+        rockBtn.style.border = "5px solid green";
+        playRound(playerSelection, getComputerChoice());
+        document.getElementById("rock").disabled = true;
+
+        //allow time for the player to see the computer "playing"
+        setTimeout(function () {
+            rockBtn.style.border = "none";
+            computerBtnSelected.style.border = "none";
+            document.getElementById("rock").disabled = false;
+        }, 500);
     }
+});
 
-    return format(playerChoice);
-}
+paperBtn.addEventListener("click", () => {
+    if (gameOver == false) {
+        playerSelection = "Paper";
+        paperBtn.style.border = "5px solid green";
+        playRound(playerSelection, getComputerChoice());
+        document.getElementById("paper").disabled = true;
+        setTimeout(function () {
+            paperBtn.style.border = "none";
+            computerBtnSelected.style.border = "none";
+            document.getElementById("paper").disabled = false;
+        }, 500);
+    }
+});
 
-function format(playerChoice) {
-    //format the player's input so that it matches the words Rock, Paper, or Scissors
-    return playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
-}
+scissorBtn.addEventListener("click", () => {
+    if (gameOver == false) {
+        playerSelection = "Scissors";
+        scissorBtn.style.border = "5px solid green";
+        playRound(playerSelection, getComputerChoice());
+        document.getElementById("scissors").disabled = true;
+        setTimeout(function () {
+            scissorBtn.style.border = "none";
+            computerBtnSelected.style.border = "none";
+            document.getElementById("scissors").disabled = false;
+        }, 500);
+    }
+});
 
-
-function playRound() {
-    const playerSelection = getPlayerChoice();
-    const computerSelection = getComputerChoice();
+function playRound(playerSelection, computerSelection) {
+    roundNum++;
     let roundResult = "";
-
     if ((playerSelection == "Scissors" && computerSelection == "Paper")
         || (playerSelection == "Paper" && computerSelection == "Rock")
         || (playerSelection == "Rock" && computerSelection == "Scissors")) {
-        roundResult = "You win this round! " + "Player's move: "
-            + playerSelection + " beats " + "Computer's move: " + computerSelection;
-        playerScore++;
+        roundResult = "You win round " + roundNum + "! " +
+            "Your move, " + playerSelection.toLowerCase()
+            + ", beat the computer's move, " + computerSelection.toLowerCase() + ".";
+        (document.getElementById("player-score").innerHTML)++ //player score
     } else if (playerSelection == computerSelection) {
-        roundResult = "It's a tie! There's no winner or loser for this round. "
+        roundResult = "It's a tie! There's no winner or loser for round " + roundNum + "! ";
     } else {
-        roundResult = "You lose this round! " + "Computer's move: " + computerSelection +
-            " beats " + "Player's move: " + playerSelection;
-        computerScore++;
+        roundResult = "You lose round " + roundNum + "! " + "The computer's move, " + computerSelection.toLowerCase() +
+            ", beat your move, " + playerSelection.toLowerCase() + ".";
+        (document.getElementById("computer-score").innerHTML)++ //computer score
     }
-    return roundResult;
+
+    let resultELem = document.createElement("h2");
+    resultELem.textContent = roundResult;
+    resultsContainer.appendChild(resultELem);
+
+    if ((document.getElementById("player-score").innerHTML) == 5
+        || (document.getElementById("computer-score").innerHTML) == 5) {
+        displayWinnerAndRestartGame(
+            (document.getElementById("player-score").innerHTML),
+            (document.getElementById("computer-score").innerHTML))
+    }
 }
 
-function game() {
-    let gameResult = "";
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound());
-        console.log("Player score: " + playerScore);
-        console.log("Computer score: " + computerScore);
+function displayWinnerAndRestartGame(playerScore, computerScore) {
+    //loop to fix bug which causes computer button
+    //border to remain green after game ends for some rounds
+    for (const button of computerBtns) {
+        if (button.style.border == "5px solid green") {
+            button.style.border = "none";
+        }
     }
 
-    if (playerScore > computerScore) {
-        gameResult = "You won this game!"
-    } else if (computerScore > playerScore) {
-        gameResult = "You lost this game. Better luck next time. "
+    gameOver = true;
+    let gameResultsElem = document.createElement("h2");
+    const restartGameBtn = document.createElement("button");
+    restartGameBtn.textContent = "Restart Game"
+    restartGameBtn.classList.add("restart-btn");
+    if (playerScore == 5 && computerScore == 5) {
+        gameResultsElem.textContent = "Tied game."
+    } else if (playerScore == 5) {
+        gameResultsElem.textContent = "Congratuations, you won the game!"
     } else {
-        gameResult = "Tied game."
+        gameResultsElem.textContent = "You lost the game. Better luck next time"
     }
+    resultsContainer.appendChild(gameResultsElem);
+    resultsContainer.appendChild(restartGameBtn);
 
-    //reset scores before new round
-    // playerScore = 0;
-    // computerScore = 0;
-    return gameResult;
+    restartGameBtn.addEventListener("click", () => {
+        document.getElementById("player-score").innerHTML = 0;
+        document.getElementById("computer-score").innerHTML = 0;
+        resultsContainer.innerHTML = "";
+        roundNum = 0;
+        gameOver = false;
+    })
 }
-
-console.log(game());

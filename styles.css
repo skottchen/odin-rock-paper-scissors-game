@@ -1,0 +1,68 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: -20px;
+}
+
+#header,
+#results,
+#player,
+#computer {
+  text-align: center;
+}
+
+#game-container {
+  display: flex;
+}
+
+#player,
+#computer {
+  border: 1px solid black;
+  margin: 10px;
+}
+
+#player button,
+#computer button {
+  height: 150px;
+  width: 150px;
+  font-size: 25px;
+  margin: 10px;
+}
+
+#player button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 30px lightblue;
+}
+
+#computer button {
+  background: gold;
+  color: black;
+  border: none;
+}
+
+h2 {
+  font-size: 35px;
+}
+
+.restart-btn {
+  height: 100px;
+  width: 250px;
+  border-radius: 25px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+footer {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+img {
+  width: 30px;
+  height: 30px;
+}

@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Rock Paper Scissors</title>
-</head>
-<body>
+  </head>
+  <body>
+    <div>
+      <div id="header">
+        <h2>Rock, Paper, Scissors</h2>
+        <h2>First to 5 wins the game!</h2>
+      </div>
+      <div id="game-container">
+        <div id="player">
+          <h2>Player</h2>
+          <h2>Score:<span id="player-score">0</span></h2>
+          <button id="rock">Rock</button>
+          <button id="paper">Paper</button>
+          <button id="scissors">Scissors</button>
+        </div>
+  
+        <div id="computer">
+          <h2>Computer</h2>
+          <h2>Score:<span id="computer-score">0</span></h2>
+          <button disabled>Rock</button>
+          <button disabled>Paper</button>
+          <button disabled>Scissors</button>
+        </div>
+      </div>
+      <div id="results"></div>
+    </div>
+    <div>
+      <footer>
+        Copyright © 2024 Scott Chen<a
+          href="https://github.com/skottchen/rock-paper-scissors"
+          target="_blank"
+        >
+          <img
+            src="https://img.icons8.com/fluent/48/000000/github.png"
+            alt="Github"
+          />
+        </a>
+      </footer>
+    </div>
     <script src="index.js"></script>
-</body>
+  </body>
 </html>
