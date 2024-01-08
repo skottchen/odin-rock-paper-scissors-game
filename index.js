@@ -20,13 +20,6 @@ function getComputerChoice() {
         computerChoice = "Scissors";
     }
 
-    for (const button of computerBtns) {
-        if (button.textContent == computerChoice) {
-            button.style.border = "5px solid green";
-            computerBtnSelected = button;
-        }
-    }
-
     return computerChoice;
 }
 
@@ -41,7 +34,6 @@ rockBtn.addEventListener("click", () => {
         //allow time for the player to see the computer "playing"
         setTimeout(function () {
             rockBtn.style.border = "none";
-            computerBtnSelected.style.border = "none";
             document.getElementById("rock").disabled = false;
         }, 500);
     }
@@ -55,7 +47,6 @@ paperBtn.addEventListener("click", () => {
         document.getElementById("paper").disabled = true;
         setTimeout(function () {
             paperBtn.style.border = "none";
-            computerBtnSelected.style.border = "none";
             document.getElementById("paper").disabled = false;
         }, 500);
     }
@@ -69,7 +60,6 @@ scissorBtn.addEventListener("click", () => {
         document.getElementById("scissors").disabled = true;
         setTimeout(function () {
             scissorBtn.style.border = "none";
-            computerBtnSelected.style.border = "none";
             document.getElementById("scissors").disabled = false;
         }, 500);
     }
@@ -107,13 +97,6 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function displayWinnerAndRestartGame(playerScore, computerScore) {
-    //loop to fix bug which causes computer button
-    //border to remain green after game ends for some rounds
-    for (const button of computerBtns) {
-        if (button.style.border == "5px solid green") {
-            button.style.border = "none";
-        }
-    }
 
     gameOver = true;
     let gameResultsElem = document.createElement("h2");
